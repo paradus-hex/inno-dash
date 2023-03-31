@@ -6,9 +6,36 @@ export const getProduct = createAsyncThunk("getProduct", async () => {
   return response.data
 })
 
+interface ProductType {
+  id: number;
+  name: string;
+  description: string;
+  picture: string;
+  type: {
+    id: number;
+    name: string;
+  };
+  categories: {
+    id: number;
+    name: string;
+  }[];
+  implementationEffortText: string | null;
+  investmentEffort: string;
+  trl: {
+    id: number;
+    name: string;
+  };
+  video: string;
+  user: {
+    id: number;
+    email: string;
+    firstName: string;
+  };
+}
+
 interface ProductState {
   isLoading: boolean;
-  data: any | null;
+  data: ProductType | null;
   isError: boolean;
   isFulfilled: boolean;
 }
