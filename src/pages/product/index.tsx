@@ -39,37 +39,21 @@ const Product = () => {
   return (
     <>
       <Box className="mx-auto mt-12 max-w-6xl">
-        <Box className="flex flex-col ">
+        <Box className="flex flex-col  ">
           <Image
             src="/innologo.svg"
             alt="Innoloft logo"
             width={200}
             height={50}
-            className="mb-12"
+            className="mb-12 md:pl-0 ml-12"
           />
           {data && (
             <Box>
               <ThemeProvider theme={darkTheme}>
-                <Box className="flex">
+                <Box className="flex flex-col md:flex-row items-center md:items-start px-4 md:px-0">
                   <CompanyDescription data={data} />
                   <Offer data={data} />
                 </Box>
-
-                {/* <Box className="mb-4">
-                <p className="text-lg font-medium">{data?.type.name}</p>
-                <p className="text-lg font-medium">{data?.investmentEffort}</p>
-                <p className="text-lg font-medium">{data?.trl.name}</p>
-                </Box>
-                <ul className="list-disc list-inside mb-4">
-                {data?.categories.map((category: any) => (
-                  <li key={category.id} className="text-lg font-medium">
-                  {category.name}
-                  </li>
-                  ))}
-                  </ul>
-                  <Box className="mb-4">
-                  <p className="text-lg font-medium"></p>
-                </Box> */}
                 <Card className="my-10">
                   <Typography variant="h6" className="pt-2 pl-2">
                     Video
@@ -85,11 +69,6 @@ const Product = () => {
                   </CardActionArea>
                 </Card>
                 <DetailsSection data={data} />
-                {/* <Box className="mb-4">
-                  <p className="text-lg font-medium">Contact Person:</p>
-                  <p className="text-lg font-medium">{data?.user.firstName}</p>
-                  <p className="text-lg font-medium">{data?.user.email}</p>
-                </Box> */}
               </ThemeProvider>
             </Box>
           )}

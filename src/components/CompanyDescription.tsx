@@ -26,7 +26,7 @@ function extractTextFromHtml(htmlString: string): string {
 
 export const CompanyDescription = ({ data }: { data: ProductType }) => {
   return (
-    <Card className="mr-8 flex-1">
+    <Card className="mr-0 md:mr-8 mb-12 md:mb-0 flex-1 ">
       <CardActionArea>
         <CardMedia
           component="img"
