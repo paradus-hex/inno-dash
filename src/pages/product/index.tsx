@@ -14,6 +14,7 @@ import "leaflet/dist/leaflet.css";
 import { CompanyDescription } from "@/components/CompanyDescription";
 import Offer from "@/components/Offer";
 import YoutubeComponent from "@/components/YoutubeComponent";
+import DetailsSection from "@/components/DetailsSection";
 
 const Product = () => {
   const { isLoading, data } = useAppSelector((state) => state.product);
@@ -70,7 +71,7 @@ const Product = () => {
                   <p className="text-lg font-medium"></p>
                 </Box> */}
                 <Card className="my-10">
-                  <Typography variant="h6" className="p-2">
+                  <Typography variant="h6" className="pt-2 pl-2">
                     Video
                   </Typography>
                   <CardActionArea
@@ -83,11 +84,12 @@ const Product = () => {
                     <YoutubeComponent videoLink={data.video} />
                   </CardActionArea>
                 </Card>
-                <Box className="mb-4">
+                <DetailsSection data={data} />
+                {/* <Box className="mb-4">
                   <p className="text-lg font-medium">Contact Person:</p>
                   <p className="text-lg font-medium">{data?.user.firstName}</p>
                   <p className="text-lg font-medium">{data?.user.email}</p>
-                </Box>
+                </Box> */}
               </ThemeProvider>
             </Box>
           )}

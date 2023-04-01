@@ -56,6 +56,10 @@ export interface ProductType {
   video: string;
   user: User
   company: Company
+  businessModels: {
+    id: number;
+    name: string
+  }[]
 }
 
 interface ProductState {
