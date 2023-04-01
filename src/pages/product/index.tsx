@@ -2,10 +2,18 @@ import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import Image from "next/image";
 import { getProduct } from "@/state/slice/product";
-import { Box, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Box,
+  Card,
+  ThemeProvider,
+  createTheme,
+  CardActionArea,
+  Typography,
+} from "@mui/material";
 import "leaflet/dist/leaflet.css";
 import { CompanyDescription } from "@/components/CompanyDescription";
 import Offer from "@/components/Offer";
+import YoutubeComponent from "@/components/YoutubeComponent";
 
 const Product = () => {
   const { isLoading, data } = useAppSelector((state) => state.product);
@@ -40,43 +48,47 @@ const Product = () => {
           />
           {data && (
             <Box>
-              <Box className="flex">
-                <ThemeProvider theme={darkTheme}>
+              <ThemeProvider theme={darkTheme}>
+                <Box className="flex">
                   <CompanyDescription data={data} />
                   <Offer data={data} />
-                </ThemeProvider>
-              </Box>
+                </Box>
 
-              <Box className="mb-4">
+                {/* <Box className="mb-4">
                 <p className="text-lg font-medium">{data?.type.name}</p>
                 <p className="text-lg font-medium">{data?.investmentEffort}</p>
                 <p className="text-lg font-medium">{data?.trl.name}</p>
-              </Box>
-              <ul className="list-disc list-inside mb-4">
+                </Box>
+                <ul className="list-disc list-inside mb-4">
                 {data?.categories.map((category: any) => (
                   <li key={category.id} className="text-lg font-medium">
-                    {category.name}
+                  {category.name}
                   </li>
-                ))}
-              </ul>
-              <Box className="mb-4">
-                <p className="text-lg font-medium"></p>
-              </Box>
-              <Box className="mb-4">
-                <a
-                  href={data?.video}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lg font-medium text-blue-500"
-                >
-                  Watch Video
-                </a>
-              </Box>
-              <Box className="mb-4">
-                <p className="text-lg font-medium">Contact Person:</p>
-                <p className="text-lg font-medium">{data?.user.firstName}</p>
-                <p className="text-lg font-medium">{data?.user.email}</p>
-              </Box>
+                  ))}
+                  </ul>
+                  <Box className="mb-4">
+                  <p className="text-lg font-medium"></p>
+                </Box> */}
+                <Card className="my-10">
+                  <Typography variant="h6" className="p-2">
+                    Video
+                  </Typography>
+                  <CardActionArea
+                    sx={{
+                      padding: "24px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <YoutubeComponent videoLink={data.video} />
+                  </CardActionArea>
+                </Card>
+                <Box className="mb-4">
+                  <p className="text-lg font-medium">Contact Person:</p>
+                  <p className="text-lg font-medium">{data?.user.firstName}</p>
+                  <p className="text-lg font-medium">{data?.user.email}</p>
+                </Box>
+              </ThemeProvider>
             </Box>
           )}
         </Box>
