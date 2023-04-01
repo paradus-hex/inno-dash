@@ -72,31 +72,29 @@ export const CompanyDescription = ({
           )}
         </CardContent>
       </CardActionArea>
-      <div className="flex-grow-1">
-        <CardActions className="justify-end">
-          {isEdit ? (
-            <Button
-              size="small"
-              color="primary"
-              onClick={() => {
-                router.push("/product/edit");
-              }}
-            >
-              Save
-            </Button>
-          ) : (
-            <Button
-              size="small"
-              color="primary"
-              onClick={() => {
-                router.push("/product/edit");
-              }}
-            >
-              Edit
-            </Button>
-          )}
-        </CardActions>
-      </div>
+      <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
+        {isEdit ? (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              router.push("/product/edit");
+            }}
+          >
+            Save
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              router.push("/product/edit");
+            }}
+          >
+            Edit
+          </Button>
+        )}
+      </CardActions>
     </Card>
   );
 };

@@ -55,13 +55,11 @@ export default function YoutubeComponent({
             <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />
           )}
         </CardActionArea>
-        <div className="flex-grow-1">
-          <CardActions className="justify-end">
-            <Button size="small" color="primary" onClick={() => {}}>
-              Save
-            </Button>
-          </CardActions>
-        </div>
+        <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button size="small" color="primary" onClick={() => {}}>
+            Save
+          </Button>
+        </CardActions>
       </Card>
     </div>
   );

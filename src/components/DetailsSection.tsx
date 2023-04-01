@@ -12,8 +12,17 @@ import {
   Box,
 } from "@mui/material";
 import Chip from "@mui/material/Chip";
+import DeleteIcon from "@mui/icons-material/Delete";
+const DetailsSection = ({
+  data,
+  isEdit = true,
+}: {
+  data: ProductType;
+  isEdit?: boolean;
+}) => {
+  let icon: any;
 
-const DetailsSection = ({ data }: { data: ProductType }) => {
+  const handleDelete = (model: any) => {};
   return (
     <Card className="mx-4 md:mx-0 md:mr-8 md:w-full">
       <CardActionArea>
@@ -30,10 +39,27 @@ const DetailsSection = ({ data }: { data: ProductType }) => {
             <Typography gutterBottom variant="h6" component="div">
               Business Models
             </Typography>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
-              {data.businessModels.map((model) => (
-                <Chip key={model.id} label={model.name} />
-              ))}
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              gap={1}
+              sx={{ flexWrap: "wrap" }}
+            >
+              {data.businessModels.map((model) =>
+                isEdit ? (
+                  <Chip
+                    key={model.id}
+                    label={model.name}
+                    deleteIcon={<DeleteIcon />}
+                    onDelete={() =>
+                      model.name === "React"
+                        ? undefined
+                        : handleDelete(model.id)
+                    }
+                  />
+                ) : (
+                  <Chip key={model.id} label={model.name} />
+                )
+              )}
             </Stack>
             <Typography
               className="pt-4"
@@ -43,10 +69,25 @@ const DetailsSection = ({ data }: { data: ProductType }) => {
             >
               Categories
             </Typography>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
-              {data.categories.map((cat) => (
-                <Chip key={cat.id} label={cat.name} />
-              ))}
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              gap={1}
+              sx={{ flexWrap: "wrap" }}
+            >
+              {data.categories.map((cat) =>
+                isEdit ? (
+                  <Chip
+                    key={cat.id}
+                    deleteIcon={<DeleteIcon />}
+                    label={cat.name}
+                    onDelete={() =>
+                      cat.name === "React" ? undefined : handleDelete(cat.id)
+                    }
+                  />
+                ) : (
+                  <Chip key={cat.id} label={cat.name} />
+                )
+              )}
             </Stack>
           </Box>
           <Box className="w-full md:w-auto">
@@ -70,7 +111,7 @@ const DetailsSection = ({ data }: { data: ProductType }) => {
           </Box>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           size="small"
           color="primary"
@@ -78,7 +119,7 @@ const DetailsSection = ({ data }: { data: ProductType }) => {
             console.log(data);
           }}
         >
-          Edit
+          Save
         </Button>
       </CardActions>
     </Card>
