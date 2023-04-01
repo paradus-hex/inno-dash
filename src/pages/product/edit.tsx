@@ -69,23 +69,10 @@ const EditProduct = () => {
           {data && (
             <Box>
               <ThemeProvider theme={darkTheme}>
-                <Box className="flex flex-col md:flex-row items-center md:items-start px-4 md:px-0">
+                <Box className="flex flex-col md:flex-row md:items-start px-4 md:px-0">
                   <CompanyDescription isEdit={true} data={data} />
                 </Box>
-                <Card className="my-10 mx-4 md:mx-0">
-                  <Typography variant="h6" className="pt-2 pl-2">
-                    Video
-                  </Typography>
-                  <CardActionArea
-                    sx={{
-                      padding: "24px",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <YoutubeComponent isEdit={true} videoLink={data.video} />
-                  </CardActionArea>
-                </Card>
+                <YoutubeComponent />
                 <DetailsSection data={data} />
               </ThemeProvider>
             </Box>

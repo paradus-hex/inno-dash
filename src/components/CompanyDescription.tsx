@@ -35,7 +35,7 @@ export const CompanyDescription = ({
 }) => {
   const router = useRouter();
   return (
-    <Card className="mr-0  mb-12 md:mb-0 flex-1">
+    <Card className="mr-0 mb-12 md:mb-0 flex-1">
       <CardActionArea>
         {!isEdit && (
           <CardMedia
@@ -64,7 +64,7 @@ export const CompanyDescription = ({
             <TextField
               fullWidth
               id="outlined-multiline-static"
-              label="Description"
+              label="Edit Description"
               multiline
               rows={10}
               defaultValue={extractTextFromHtml(data?.description)}
