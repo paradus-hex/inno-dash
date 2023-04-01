@@ -15,7 +15,7 @@ import Chip from "@mui/material/Chip";
 
 const DetailsSection = ({ data }: { data: ProductType }) => {
   return (
-    <Card className="mr-8 w-full">
+    <Card className="mx-4 md:mx-0 md:mr-8 md:w-full">
       <CardActionArea>
         <Typography
           gutterBottom
@@ -25,12 +25,12 @@ const DetailsSection = ({ data }: { data: ProductType }) => {
         >
           Offer Details
         </Typography>
-        <CardContent className="flex justify-evenly">
-          <Box>
+        <CardContent className="flex flex-col md:flex-row md:justify-evenly">
+          <Box className="w-full md:w-auto">
             <Typography gutterBottom variant="h6" component="div">
               Business Models
             </Typography>
-            <Stack direction="row" spacing={1}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
               {data.businessModels.map((model) => (
                 <Chip key={model.id} label={model.name} />
               ))}
@@ -43,17 +43,17 @@ const DetailsSection = ({ data }: { data: ProductType }) => {
             >
               Categories
             </Typography>
-            <Stack direction="row" spacing={1}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
               {data.categories.map((cat) => (
                 <Chip key={cat.id} label={cat.name} />
               ))}
             </Stack>
           </Box>
-          <Box>
+          <Box className="w-full md:w-auto">
             <Typography gutterBottom variant="h6" component="div">
               TRL
             </Typography>
-            <Stack direction="row" spacing={1}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
               <Chip label={data.trl.name} />
             </Stack>
             <Typography
@@ -64,7 +64,7 @@ const DetailsSection = ({ data }: { data: ProductType }) => {
             >
               Costs
             </Typography>
-            <Stack direction="row" spacing={1}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
               <Chip label={data.investmentEffort} />
             </Stack>
           </Box>
