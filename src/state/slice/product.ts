@@ -23,6 +23,17 @@ export interface Company {
   };
 }
 
+export interface User {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string
+  profilePicture: string
+  sex: 1
+  position: string
+
+};
+
 export interface ProductType {
   id: number;
   name: string;
@@ -43,11 +54,7 @@ export interface ProductType {
     name: string;
   };
   video: string;
-  user: {
-    id: number;
-    email: string;
-    firstName: string;
-  };
+  user: User
   company: Company
 }
 

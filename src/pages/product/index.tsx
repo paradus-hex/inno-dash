@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import "leaflet/dist/leaflet.css";
 import dynamic from "next/dynamic";
+import UserSection from "@/components/UserSection";
 
 const MapWithNoSSR = dynamic(() => import("@/components/map"), {
   ssr: false,
@@ -115,6 +116,7 @@ const Product = () => {
                     <CardActionArea>
                       <MapWithNoSSR company={data.company} />
                       <CardContent>
+                        <Typography className="pb-2">Offered By:</Typography>
                         <Image
                           src={data?.company.logo}
                           alt={data?.name}
@@ -130,6 +132,10 @@ const Product = () => {
                           <RoomIcon className="mb-2 mr-2" />
                           {address}
                         </Typography>
+                        <UserSection
+                          user={data.user}
+                          company={data.company.name}
+                        />
                       </CardContent>
                     </CardActionArea>
                   </Card>
