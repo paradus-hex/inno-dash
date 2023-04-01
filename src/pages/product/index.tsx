@@ -6,11 +6,13 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import RoomIcon from "@mui/icons-material/Room";
 import {
   Box,
   Button,
   CardActionArea,
   CardActions,
+  Stack,
   ThemeProvider,
   createTheme,
 } from "@mui/material";
@@ -51,14 +53,21 @@ const Product = () => {
     return <Box className="text-center py-4">Loading...</Box>;
   }
 
+  let address;
+
+  if (data) {
+    address = `${data.company.address.street} ${data.company.address.house}, ${data.company.address.zipCode} ${data?.company.address.city.name}, 
+    ${data?.company.address.country.name}`;
+  }
+
   return (
     <>
       <Box className="mx-auto mt-12 max-w-6xl">
         {data && (
           <Box>
-            <Box className="flex ">
+            <Box className="flex">
               <ThemeProvider theme={darkTheme}>
-                <Card className="mr-8">
+                <Card className="mr-8 flex-1">
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -90,18 +99,24 @@ const Product = () => {
                     </Button>
                   </CardActions>
                 </Card>
-                <Card>
+                <Card className="flex-1 h-fit">
                   <CardActionArea>
-                    <Map />
+                    <Map company={data.company} />
                     <CardContent>
-                      <Typography gutterBottom variant="h4" component="div">
-                        {data?.name}
-                      </Typography>
-                      <Typography gutterBottom variant="h6" component="div">
-                        {data?.type.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {extractTextFromHtml(data?.description)}
+                      <Image
+                        src={data?.company.logo}
+                        alt={data?.name}
+                        width={150}
+                        height={150}
+                      />
+                      <Typography
+                        gutterBottom
+                        variant="subtitle1"
+                        component="div"
+                        className="pt-4"
+                      >
+                        <RoomIcon className="mb-2 mr-2" />
+                        {address}
                       </Typography>
                     </CardContent>
                   </CardActionArea>

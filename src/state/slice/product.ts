@@ -5,8 +5,25 @@ export const getProduct = createAsyncThunk("getProduct", async () => {
   const response = await axios.get('https://api-test.innoloft.com/product/6781/')
   return response.data
 })
+export interface Company {
+  name: string;
+  logo: string;
+  address: {
+    country: {
+      name: string;
+    };
+    city: {
+      name: string;
+    };
+    street: string;
+    house: string;
+    zipCode: string;
+    longitude: string;
+    latitude: string;
+  };
+}
 
-interface ProductType {
+export interface ProductType {
   id: number;
   name: string;
   description: string;
@@ -31,7 +48,7 @@ interface ProductType {
     email: string;
     firstName: string;
   };
-  company: any
+  company: Company
 }
 
 interface ProductState {
