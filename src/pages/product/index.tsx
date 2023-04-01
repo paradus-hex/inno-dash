@@ -15,7 +15,7 @@ import { CompanyDescription } from "@/components/CompanyDescription";
 import Offer from "@/components/Offer";
 import YoutubeComponent from "@/components/YoutubeComponent";
 import DetailsSection from "@/components/DetailsSection";
-
+import UserSection from "@/components/UserSection";
 const Product = () => {
   const { isLoading, data } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
@@ -39,14 +39,29 @@ const Product = () => {
   return (
     <>
       <Box className="mx-auto my-12 max-w-6xl">
-        <Box className="flex flex-col  ">
-          <Image
-            src="/innologo.svg"
-            alt="Innoloft logo"
-            width={200}
-            height={50}
-            className="mb-12 self-center md:self-start"
-          />
+        <Box className="flex flex-col">
+          <Box className="flex justify-center md:justify-between ">
+            <Image
+              src="/innologo.svg"
+              alt="Innoloft logo"
+              width={200}
+              height={50}
+              className="mb-12 self-center md:self-start"
+            />
+            {data && (
+              <Box
+                className="mb-12"
+                sx={{
+                  display: {
+                    xs: "none",
+                    md: "initial",
+                  },
+                }}
+              >
+                <UserSection user={data.user} company={data.company.name} />
+              </Box>
+            )}
+          </Box>
           {data && (
             <Box>
               <ThemeProvider theme={darkTheme}>
