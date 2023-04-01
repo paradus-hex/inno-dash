@@ -18,7 +18,13 @@ const MapWithNoSSR = dynamic(() => import("./map"), {
   ssr: false,
 });
 
-const Offer = ({ data }: { data: ProductType }) => {
+const Offer = ({
+  data,
+  enableMap = true,
+}: {
+  data: ProductType;
+  enableMap?: boolean;
+}) => {
   let address;
 
   if (data) {
@@ -27,9 +33,9 @@ const Offer = ({ data }: { data: ProductType }) => {
   }
 
   return (
-    <Card className="flex-1 h-fit">
+    <Card className="flex-1 md:ml-8 h-fit">
       <CardActionArea>
-        <MapWithNoSSR company={data.company} />
+        {enableMap && <MapWithNoSSR company={data.company} />}
         <CardContent>
           <Typography className="pb-2">Offered By:</Typography>
           <Image

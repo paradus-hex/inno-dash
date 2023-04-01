@@ -1,7 +1,14 @@
+import { TextField } from "@mui/material";
 import React from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 
-export default function YoutubeComponent({ videoLink }: { videoLink: string }) {
+export default function YoutubeComponent({
+  videoLink,
+  isEdit = false,
+}: {
+  videoLink: string;
+  isEdit?: boolean;
+}) {
   const videoId = videoLink.split("v=")[1];
 
   const onPlayerReady: YouTubeProps["onReady"] = (event) => {
@@ -18,7 +25,16 @@ export default function YoutubeComponent({ videoLink }: { videoLink: string }) {
 
   return (
     <div className="pb-12">
-      <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />
+      {isEdit ? (
+        <TextField
+          id="outlined-multiline-static"
+          label="Youtube URL"
+          className="w-[640px]"
+          variant="standard"
+        />
+      ) : (
+        <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />
+      )}
     </div>
   );
 }

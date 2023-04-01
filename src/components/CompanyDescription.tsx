@@ -7,8 +7,10 @@ import {
   CardActions,
   Typography,
   Button,
+  TextField,
 } from "@mui/material";
 import React from "react";
+import { useRouter } from "next/router";
 
 function extractTextFromHtml(htmlString: string): string {
   // Parse the HTML string into a document object
@@ -24,39 +26,77 @@ function extractTextFromHtml(htmlString: string): string {
   return doc.body.textContent?.trim() || "";
 }
 
-export const CompanyDescription = ({ data }: { data: ProductType }) => {
+export const CompanyDescription = ({
+  data,
+  isEdit = false,
+}: {
+  data: ProductType;
+  isEdit?: boolean;
+}) => {
+  const router = useRouter();
   return (
-    <Card className="mr-0 md:mr-8 mb-12 md:mb-0 flex-1 ">
+    <Card className="mr-0  mb-12 md:mb-0 flex-1">
       <CardActionArea>
-        <CardMedia
-          component="img"
-          image={data?.picture}
-          alt={data?.name}
-          className="h-1/4 p-4"
-        />
+        {!isEdit && (
+          <CardMedia
+            component="img"
+            image={data?.picture}
+            alt={data?.name}
+            className="h-1/4 p-4"
+          />
+        )}
         <CardContent>
-          <Typography gutterBottom variant="h4" component="div">
-            {data?.name}
-          </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            {data?.type.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {extractTextFromHtml(data?.description)}
-          </Typography>
+          {!isEdit && (
+            <>
+              <Typography gutterBottom variant="h4" component="div">
+                {data?.name}
+              </Typography>
+              <Typography gutterBottom variant="h6" component="div">
+                {data?.type.name}
+              </Typography>
+            </>
+          )}
+          {!isEdit ? (
+            <Typography variant="body2" color="text.secondary">
+              {extractTextFromHtml(data?.description)}
+            </Typography>
+          ) : (
+            <TextField
+              fullWidth
+              id="outlined-multiline-static"
+              label="Description"
+              multiline
+              rows={10}
+              defaultValue={extractTextFromHtml(data?.description)}
+            />
+          )}
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            console.log(data);
-          }}
-        >
-          Edit
-        </Button>
-      </CardActions>
+      <div className="flex-grow-1">
+        <CardActions className="justify-end">
+          {isEdit ? (
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => {
+                router.push("/product/edit");
+              }}
+            >
+              Save
+            </Button>
+          ) : (
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => {
+                router.push("/product/edit");
+              }}
+            >
+              Edit
+            </Button>
+          )}
+        </CardActions>
+      </div>
     </Card>
   );
 };

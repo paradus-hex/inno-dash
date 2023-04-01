@@ -16,6 +16,8 @@ import Offer from "@/components/Offer";
 import YoutubeComponent from "@/components/YoutubeComponent";
 import DetailsSection from "@/components/DetailsSection";
 import UserSection from "@/components/UserSection";
+import Link from "next/link";
+
 const Product = () => {
   const { isLoading, data } = useAppSelector((state) => state.product);
   const dispatch = useAppDispatch();
@@ -38,16 +40,18 @@ const Product = () => {
 
   return (
     <>
-      <Box className="mx-auto my-12 max-w-6xl">
+      <Box className="mx-auto my-12 max-w-5xl xl:max-w-6xl">
         <Box className="flex flex-col">
           <Box className="flex justify-center md:justify-between ">
-            <Image
-              src="/innologo.svg"
-              alt="Innoloft logo"
-              width={200}
-              height={50}
-              className="mb-12 self-center md:self-start"
-            />
+            <Link href="/product">
+              <Image
+                src="/innologo.svg"
+                alt="Innoloft logo"
+                width={200}
+                height={50}
+                className="mb-12 self-center md:self-start hover:cursor-pointer"
+              />
+            </Link>
             {data && (
               <Box
                 className="mb-12"
