@@ -60,6 +60,11 @@ const DetailsSection = ({
                   <Chip key={model.id} label={model.name} />
                 )
               )}
+              {isEdit ? (
+                <Button variant="outlined" size="small">
+                  + ADD
+                </Button>
+              ) : null}
             </Stack>
             <Typography
               className="pt-4"
@@ -88,6 +93,11 @@ const DetailsSection = ({
                   <Chip key={cat.id} label={cat.name} />
                 )
               )}
+              {isEdit ? (
+                <Button variant="outlined" size="small">
+                  + ADD
+                </Button>
+              ) : null}
             </Stack>
           </Box>
           <Box className="w-full md:w-auto">
