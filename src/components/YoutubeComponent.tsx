@@ -16,5 +16,9 @@ export default function YoutubeComponent({ videoLink }: { videoLink: string }) {
     },
   };
 
-  return <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />;
+  return (
+    <div className="pb-12">
+      <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />
+    </div>
+  );
 }
