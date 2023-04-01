@@ -6,36 +6,34 @@ import ReactDOMServer from "react-dom/server";
 
 const Map = ({ company }: { company: Company }) => {
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const map = L.map("map").setView(
-        [Number(company.address.latitude), Number(company.address.longitude)],
-        13
-      );
+    const map = L.map("map").setView(
+      [Number(company.address.latitude), Number(company.address.longitude)],
+      13
+    );
 
-      const MyIcon = () => <RoomIcon style={{ color: "darkred" }} />;
+    const MyIcon = () => <RoomIcon style={{ color: "darkred" }} />;
 
-      const myIcon = L.divIcon({
-        className: "my-div-icon",
-        html: ReactDOMServer.renderToString(<MyIcon />),
-      });
+    const myIcon = L.divIcon({
+      className: "my-div-icon",
+      html: ReactDOMServer.renderToString(<MyIcon />),
+    });
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
-        map
-      );
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
+      map
+    );
 
-      const marker = L.marker(
-        [Number(company.address.latitude), Number(company.address.longitude)],
-        { icon: myIcon }
-      ).addTo(map);
+    const marker = L.marker(
+      [Number(company.address.latitude), Number(company.address.longitude)],
+      { icon: myIcon }
+    ).addTo(map);
 
-      marker
-        .bindPopup(`${company.address.street} ${company.address.house}`)
-        .openPopup();
+    marker
+      .bindPopup(`${company.address.street} ${company.address.house}`)
+      .openPopup();
 
-      return () => {
-        map.remove();
-      };
-    }
+    return () => {
+      map.remove();
+    };
   }, []);
 
   return <div id="map" style={{ height: "500px" }}></div>;
