@@ -31,6 +31,7 @@ interface ProductType {
     email: string;
     firstName: string;
   };
+  company: any
 }
 
 interface ProductState {

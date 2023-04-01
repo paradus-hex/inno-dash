@@ -13,11 +13,8 @@ import {
   ThemeProvider,
   createTheme,
 } from "@mui/material";
-
-// function extractTextFromHtml(htmlString: string) {
-//   const doc = new DOMParser().parseFromString(htmlString, "text/html");
-//   return doc.body.textContent;
-// }
+import Map from "@/components/map";
+import "leaflet/dist/leaflet.css";
 
 function extractTextFromHtml(htmlString: string): string {
   // Parse the HTML string into a document object
@@ -38,7 +35,9 @@ const Product = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getProduct());
+    if (typeof window !== "undefined") {
+      dispatch(getProduct());
+    }
   }, []);
 
   const darkTheme = createTheme({
@@ -52,34 +51,48 @@ const Product = () => {
   }
 
   return (
-    <div className="mx-auto mt-12 max-w-5xl">
+    <div className="mx-auto mt-12 max-w-6xl">
       {data && (
         <div>
-          <ThemeProvider theme={darkTheme}>
-            <Card className="w-1/2">
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  image={data?.picture}
-                  alt={data?.name}
-                  className="h-1/4 p-4"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {data?.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {extractTextFromHtml(data?.description)}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Edit
-                </Button>
-              </CardActions>
-            </Card>
-          </ThemeProvider>
+          <div className="flex justify-between">
+            <ThemeProvider theme={darkTheme}>
+              <Card className="w-1/2">
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    image={data?.picture}
+                    alt={data?.name}
+                    className="h-1/4 p-4"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h4" component="div">
+                      {data?.name}
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {data?.type.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {extractTextFromHtml(data?.description)}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={() => {
+                      console.log(data);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </CardActions>
+              </Card>
+            </ThemeProvider>
+            <div className="w-1/3">
+              <Map />
+            </div>
+          </div>
 
           <div className="mb-4">
             <p className="text-lg font-medium">{data?.type.name}</p>
