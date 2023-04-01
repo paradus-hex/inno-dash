@@ -38,14 +38,14 @@ const Product = () => {
 
   return (
     <>
-      <Box className="mx-auto mt-12 max-w-6xl">
+      <Box className="mx-auto my-12 max-w-6xl">
         <Box className="flex flex-col  ">
           <Image
             src="/innologo.svg"
             alt="Innoloft logo"
             width={200}
             height={50}
-            className="mb-12 md:pl-0 ml-12"
+            className="mb-12 self-center md:self-start"
           />
           {data && (
             <Box>
