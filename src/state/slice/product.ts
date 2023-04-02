@@ -77,7 +77,15 @@ const productSlice = createSlice({
     isError: false,
     isFulfilled: false
   } as ProductState,
-  reducers: {},
+  reducers: {
+    updatedDescription(state, action) {
+      if (state.data) state.data.description = action.payload
+    },
+    updatedVideoLink(state, action) {
+      if (state.data) state.data.description = action.payload
+    }
+
+  },
   extraReducers: (builder) => {
     builder.addCase(getProduct.pending, (state) => {
       state.isLoading = true
@@ -98,4 +106,5 @@ const productSlice = createSlice({
   }
 });
 
-export default productSlice.reducer;
+export const { updatedDescription } = productSlice.actions;
+export default productSlice.reducer

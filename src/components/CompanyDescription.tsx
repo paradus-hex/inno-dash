@@ -9,20 +9,18 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { updatedDescription } from "@/state/slice/product";
 
 function extractTextFromHtml(htmlString: string): string {
-  // Parse the HTML string into a document object
   const doc = new DOMParser().parseFromString(htmlString, "text/html");
-
-  // Remove all script tags
   const scriptTags = doc.getElementsByTagName("script");
   for (let i = 0; i < scriptTags.length; i++) {
     scriptTags[i].parentNode?.removeChild(scriptTags[i]);
   }
 
-  // Remove all remaining HTML tags and return the text content
   return doc.body.textContent?.trim() || "";
 }
 
@@ -34,6 +32,11 @@ export const CompanyDescription = ({
   isEdit?: boolean;
 }) => {
   const router = useRouter();
+  const { data: productData } = useAppSelector((state) => state.product);
+  const dispatch = useAppDispatch();
+  const [description, setDescription] = useState(
+    productData?.description ?? ""
+  );
   return (
     <Card className="mr-0 mb-12 md:mb-0 flex-1">
       <CardActionArea>
@@ -68,6 +71,7 @@ export const CompanyDescription = ({
               multiline
               rows={10}
               defaultValue={extractTextFromHtml(data?.description)}
+              onChange={(e) => setDescription(e.target.value)}
             />
           )}
         </CardContent>
@@ -78,7 +82,8 @@ export const CompanyDescription = ({
             size="small"
             color="primary"
             onClick={() => {
-              router.push("/product/edit");
+              dispatch(updatedDescription(description));
+              router.push("/product");
             }}
           >
             Save

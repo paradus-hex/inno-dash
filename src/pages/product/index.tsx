@@ -23,7 +23,7 @@ const Product = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && !data) {
       dispatch(getProduct());
     }
   }, []);
