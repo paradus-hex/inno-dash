@@ -13,6 +13,7 @@ import {
   Button,
   Stack,
   Box,
+  TextField,
 } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -30,6 +31,8 @@ const DetailsSection = ({
     categories: data.categories,
     businessModels: data.businessModels,
   });
+  const [newBusinessModel, setNewBusinessModel] = useState("");
+  const [newCategory, setNewCategory] = useState("");
 
   const dispatch = useAppDispatch();
 
@@ -42,6 +45,19 @@ const DetailsSection = ({
       ...bModelsAndCategories,
       ...bModelsAndCategories[type],
     });
+  };
+  const handleAdd = (type: "businessModels" | "categories") => {
+    const newItem = {
+      id: Date.now(),
+      name: type === "businessModels" ? newBusinessModel : newCategory,
+    };
+
+    setBModelsAndCategories({
+      ...bModelsAndCategories,
+      [type]: [...bModelsAndCategories[type], newItem],
+    });
+
+    type === "businessModels" ? setNewBusinessModel("") : setNewCategory("");
   };
 
   const router = useRouter();
@@ -79,9 +95,23 @@ const DetailsSection = ({
                 )
               )}
               {isEdit ? (
-                <Button variant="outlined" size="small">
-                  + ADD
-                </Button>
+                <>
+                  <input
+                    type="text"
+                    value={newBusinessModel}
+                    onChange={(e) => setNewBusinessModel(e.target.value)}
+                    placeholder="Enter"
+                    className="border w-24 px-2 py-1 mr-2 bg-transparent"
+                  />
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => handleAdd("businessModels")}
+                    disabled={!newBusinessModel}
+                  >
+                    + ADD
+                  </Button>
+                </>
               ) : null}
             </Stack>
             <Typography
@@ -110,9 +140,23 @@ const DetailsSection = ({
                 )
               )}
               {isEdit ? (
-                <Button variant="outlined" size="small">
-                  + ADD
-                </Button>
+                <>
+                  <input
+                    type="text"
+                    value={newCategory}
+                    onChange={(e) => setNewCategory(e.target.value)}
+                    placeholder="Enter"
+                    className="border w-24 px-2 py-1 mr-2 bg-transparent"
+                  />
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    onClick={() => handleAdd("categories")}
+                    disabled={!newCategory}
+                  >
+                    ADD
+                  </Button>
+                </>
               ) : null}
             </Stack>
           </Box>
