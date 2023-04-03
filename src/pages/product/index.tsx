@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "@/hooks";
 import Image from "next/image";
-import { getProduct } from "@/state/slice/product";
+import { getProduct } from "@/state/slice/productSlice";
 import {
   Box,
   Card,

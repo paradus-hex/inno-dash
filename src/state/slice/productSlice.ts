@@ -7,6 +7,11 @@ export const getProduct = createAsyncThunk("getProduct", async () => {
   return response.data
 })
 
+export const getTRLS = createAsyncThunk("getTRL", async () => {
+  const response = await axios.get('https://api-test.innoloft.com/trl/')
+  return response.data
+})
+
 export const updateProduct = createAsyncThunk(
   'updateProduct',
   async (updatedProduct: Partial<ProductType>, { rejectWithValue }) => {
@@ -29,7 +34,8 @@ const productSlice = createSlice({
     isLoading: false,
     data: null,
     isError: false,
-    isFulfilled: false
+    isFulfilled: false,
+    trls: []
   } as ProductState,
   reducers: {
     updatedDescription(state, action) {
@@ -71,9 +77,21 @@ const productSlice = createSlice({
       console.log('Error', action.payload);
       state.isError = true;
       state.isLoading = false;
-    });
+    }); builder.addCase(getTRLS.pending, (state) => {
+      state.isLoading = true
+    }),
+      builder.addCase(getTRLS.fulfilled, (state, action) => {
+        state.isFulfilled = true
+        state.isLoading = false
+        state.trls = action.payload
 
+      }),
+      builder.addCase(getTRLS.rejected, (state, action) => {
+        console.log('Error', action.payload)
+        state.isError = true
+        state.isLoading = false
 
+      })
   }
 });
 

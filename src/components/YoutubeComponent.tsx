@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import { useAppDispatch } from "@/hooks";
-import { updateProduct, updatedVideoLink } from "@/state/slice/product";
+import { updateProduct, updatedVideoLink } from "@/state/slice/productSlice";
 import { useRouter } from "next/router";
 import { dark } from "@mui/material/styles/createPalette";
 export default function YoutubeComponent({

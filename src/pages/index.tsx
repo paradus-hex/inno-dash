@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import { getProduct } from "../state/slice/product";
+import { getProduct } from "../state/slice/productSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 const inter = Inter({ subsets: ["latin"] });
 

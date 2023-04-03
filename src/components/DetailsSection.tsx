@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { updatedBModelsAndCategories } from "@/state/slice/product";
+import React, { useEffect, useState } from "react";
+import { updatedBModelsAndCategories } from "@/state/slice/productSlice";
 import {
   Card,
   CardActionArea,
@@ -11,13 +11,16 @@ import {
   Stack,
   Box,
   TextField,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/router";
-import { useAppDispatch } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { ProductType } from "@/types";
-import { updateProduct } from "@/state/slice/product";
+import { updateProduct } from "@/state/slice/productSlice";
+import { getTRLS } from "@/state/slice/productSlice";
 
 const DetailsSection = ({
   data,
@@ -29,10 +32,18 @@ const DetailsSection = ({
   const [bModelsAndCategories, setBModelsAndCategories] = useState({
     categories: data.categories,
     businessModels: data.businessModels,
+    trl: data.trl,
   });
+  const trls = useAppSelector((state) => state.product.trls);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && isEdit && trls.length === 0) {
+      dispatch(getTRLS());
+    }
+  }, []);
+
   const [newBusinessModel, setNewBusinessModel] = useState("");
   const [newCategory, setNewCategory] = useState("");
-
   const dispatch = useAppDispatch();
 
   const handleDelete = (id: number, type: "businessModels" | "categories") => {
@@ -153,7 +164,7 @@ const DetailsSection = ({
                     onClick={() => handleAdd("categories")}
                     disabled={!newCategory}
                   >
-                    ADD
+                    + ADD
                   </Button>
                 </>
               ) : null}
@@ -164,7 +175,29 @@ const DetailsSection = ({
               TRL
             </Typography>
             <Stack direction={{ xs: "column", sm: "row" }} spacing={1}>
-              <Chip label={data.trl.name} />
+              {isEdit && trls ? (
+                <Select
+                  value={bModelsAndCategories.trl.id}
+                  onChange={(e) => {
+                    const newTRL = trls.find(
+                      (trl: any) => trl.id === e.target.value
+                    );
+                    if (newTRL)
+                      setBModelsAndCategories({
+                        ...bModelsAndCategories,
+                        trl: newTRL,
+                      });
+                  }}
+                >
+                  {trls.map((trl) => (
+                    <MenuItem key={trl.id} value={trl.id}>
+                      {trl.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              ) : (
+                <Chip label={data.trl.name} />
+              )}
             </Stack>
             <Typography
               className="pt-4"

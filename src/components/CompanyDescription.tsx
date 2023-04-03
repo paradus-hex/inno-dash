@@ -11,8 +11,8 @@ import {
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { updatedDescription } from "@/state/slice/product";
-import { updateProduct } from "@/state/slice/product";
+import { updatedDescription } from "@/state/slice/productSlice";
+import { updateProduct } from "@/state/slice/productSlice";
 import { ProductType } from "@/types";
 
 function extractTextFromHtml(htmlString: string): string {

@@ -43,6 +43,7 @@ export interface ProductState {
   data: ProductType | null;
   isError: boolean;
   isFulfilled: boolean;
+  trls: ProductType['trl'][]
 }
 
 export interface Company {
