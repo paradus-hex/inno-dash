@@ -15,8 +15,10 @@ import { useRouter } from "next/router";
 import { dark } from "@mui/material/styles/createPalette";
 export default function YoutubeComponent({
   videoLink,
+  isEdit,
 }: {
-  videoLink?: string;
+  videoLink: string;
+  isEdit?: boolean;
 }) {
   const [link, setLink] = useState(videoLink);
   const dispatch = useAppDispatch();
@@ -51,7 +53,7 @@ export default function YoutubeComponent({
             justifyContent: "center",
           }}
         >
-          {!videoLink ? (
+          {isEdit ? (
             <TextField
               id="outlined-multiline-static"
               label="Youtube URL"
@@ -63,7 +65,7 @@ export default function YoutubeComponent({
             <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />
           )}
         </CardActionArea>
-        {!videoLink ? (
+        {isEdit ? (
           <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
               size="small"

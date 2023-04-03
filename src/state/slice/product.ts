@@ -83,6 +83,9 @@ const productSlice = createSlice({
     },
     updatedVideoLink(state, action) {
       if (state.data) state.data.video = action.payload
+    },
+    updatedBModelsAndCategories(state, action) {
+      if (state.data) state.data = { ...state.data, ...action.payload }
     }
 
   },
@@ -106,5 +109,5 @@ const productSlice = createSlice({
   }
 });
 
-export const { updatedDescription, updatedVideoLink } = productSlice.actions;
+export const { updatedDescription, updatedVideoLink, updatedBModelsAndCategories } = productSlice.actions;
 export default productSlice.reducer

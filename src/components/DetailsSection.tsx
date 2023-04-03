@@ -1,5 +1,8 @@
-import React from "react";
-import { ProductType } from "@/state/slice/product";
+import React, { useState } from "react";
+import {
+  ProductType,
+  updatedBModelsAndCategories,
+} from "@/state/slice/product";
 import {
   Card,
   CardActionArea,
@@ -14,6 +17,8 @@ import {
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/router";
+import { useAppDispatch } from "@/hooks";
+
 const DetailsSection = ({
   data,
   isEdit = false,
@@ -21,9 +26,24 @@ const DetailsSection = ({
   data: ProductType;
   isEdit?: boolean;
 }) => {
-  let icon: any;
+  const [bModelsAndCategories, setBModelsAndCategories] = useState({
+    categories: data.categories,
+    businessModels: data.businessModels,
+  });
 
-  const handleDelete = (model: any) => {};
+  const dispatch = useAppDispatch();
+
+  const handleDelete = (id: number, type: "businessModels" | "categories") => {
+    console.log(bModelsAndCategories);
+    bModelsAndCategories[type] = bModelsAndCategories[type].filter(
+      (ele) => ele.id !== id
+    );
+    setBModelsAndCategories({
+      ...bModelsAndCategories,
+      ...bModelsAndCategories[type],
+    });
+  };
+
   const router = useRouter();
   return (
     <Card className="mx-4 md:mx-0 md:mr-8 md:w-full">
@@ -46,17 +66,13 @@ const DetailsSection = ({
               gap={1}
               sx={{ flexWrap: "wrap" }}
             >
-              {data.businessModels.map((model) =>
+              {bModelsAndCategories.businessModels.map((model) =>
                 isEdit ? (
                   <Chip
                     key={model.id}
                     label={model.name}
                     deleteIcon={<DeleteIcon />}
-                    onDelete={() =>
-                      model.name === "React"
-                        ? undefined
-                        : handleDelete(model.id)
-                    }
+                    onDelete={() => handleDelete(model.id, "businessModels")}
                   />
                 ) : (
                   <Chip key={model.id} label={model.name} />
@@ -81,15 +97,13 @@ const DetailsSection = ({
               gap={1}
               sx={{ flexWrap: "wrap" }}
             >
-              {data.categories.map((cat) =>
+              {bModelsAndCategories.categories.map((cat) =>
                 isEdit ? (
                   <Chip
                     key={cat.id}
                     deleteIcon={<DeleteIcon />}
                     label={cat.name}
-                    onDelete={() =>
-                      cat.name === "React" ? undefined : handleDelete(cat.id)
-                    }
+                    onDelete={() => handleDelete(cat.id, "categories")}
                   />
                 ) : (
                   <Chip key={cat.id} label={cat.name} />
@@ -139,7 +153,8 @@ const DetailsSection = ({
             size="small"
             color="primary"
             onClick={() => {
-              console.log(data);
+              dispatch(updatedBModelsAndCategories(bModelsAndCategories));
+              router.push("/product");
             }}
           >
             Save

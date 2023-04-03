@@ -72,7 +72,7 @@ const EditProduct = () => {
                 <Box className="flex flex-col md:flex-row md:items-start px-4 md:px-0">
                   <CompanyDescription isEdit={true} data={data} />
                 </Box>
-                <YoutubeComponent />
+                <YoutubeComponent videoLink={data.video} isEdit={true} />
                 <DetailsSection data={data} isEdit={true} />
               </ThemeProvider>
             </Box>
