@@ -1,73 +1,27 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Company, ProductType, User, ProductState } from '../../types'
 
 export const getProduct = createAsyncThunk("getProduct", async () => {
   const response = await axios.get('https://api-test.innoloft.com/product/6781/')
   return response.data
 })
-export interface Company {
-  name: string;
-  logo: string;
-  address: {
-    country: {
-      name: string;
-    };
-    city: {
-      name: string;
-    };
-    street: string;
-    house: string;
-    zipCode: string;
-    longitude: string;
-    latitude: string;
-  };
-}
 
-export interface User {
-  id: number;
-  email: string;
-  firstName: string;
-  lastName: string
-  profilePicture: string
-  sex: 1
-  position: string
+export const updateProduct = createAsyncThunk(
+  'updateProduct',
+  async (updatedProduct: Partial<ProductType>, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        'https://api-test.innoloft.com/product/6781/',
+        updatedProduct
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
-};
-
-export interface ProductType {
-  id: number;
-  name: string;
-  description: string;
-  picture: string;
-  type: {
-    id: number;
-    name: string;
-  };
-  categories: {
-    id: number;
-    name: string;
-  }[];
-  implementationEffortText: string | null;
-  investmentEffort: string;
-  trl: {
-    id: number;
-    name: string;
-  };
-  video: string;
-  user: User
-  company: Company
-  businessModels: {
-    id: number;
-    name: string
-  }[]
-}
-
-interface ProductState {
-  isLoading: boolean;
-  data: ProductType | null;
-  isError: boolean;
-  isFulfilled: boolean;
-}
 
 const productSlice = createSlice({
   name: "product",
@@ -104,7 +58,21 @@ const productSlice = createSlice({
         state.isError = true
         state.isLoading = false
 
-      })
+      }), builder.addCase(updateProduct.pending, (state) => {
+        state.isLoading = true;
+      });
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      state.isFulfilled = true;
+      state.isLoading = false;
+      // We are not updating the data because the PUT request is not being saved.
+      // state.data = action.payload;
+    });
+    builder.addCase(updateProduct.rejected, (state, action) => {
+      console.log('Error', action.payload);
+      state.isError = true;
+      state.isLoading = false;
+    });
+
 
   }
 });

@@ -1,5 +1,5 @@
 import React from "react";
-import { ProductType } from "@/state/slice/product";
+import { ProductType } from "@/types";
 import {
   Card,
   CardActionArea,

@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
 import { useAppDispatch } from "@/hooks";
-import { updatedVideoLink } from "@/state/slice/product";
+import { updateProduct, updatedVideoLink } from "@/state/slice/product";
 import { useRouter } from "next/router";
 import { dark } from "@mui/material/styles/createPalette";
 export default function YoutubeComponent({
@@ -72,6 +72,7 @@ export default function YoutubeComponent({
               color="primary"
               onClick={() => {
                 dispatch(updatedVideoLink(link));
+                dispatch(updateProduct({ video: link }));
                 router.push("/product");
               }}
             >

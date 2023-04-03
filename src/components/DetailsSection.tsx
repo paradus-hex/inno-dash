@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  ProductType,
-  updatedBModelsAndCategories,
-} from "@/state/slice/product";
+import { updatedBModelsAndCategories } from "@/state/slice/product";
 import {
   Card,
   CardActionArea,
@@ -19,6 +16,8 @@ import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@/hooks";
+import { ProductType } from "@/types";
+import { updateProduct } from "@/state/slice/product";
 
 const DetailsSection = ({
   data,
@@ -198,6 +197,8 @@ const DetailsSection = ({
             color="primary"
             onClick={() => {
               dispatch(updatedBModelsAndCategories(bModelsAndCategories));
+              dispatch(updateProduct(bModelsAndCategories));
+
               router.push("/product");
             }}
           >

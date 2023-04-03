@@ -1,4 +1,3 @@
-import { ProductType } from "@/state/slice/product";
 import {
   Card,
   CardActionArea,
@@ -13,6 +12,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { updatedDescription } from "@/state/slice/product";
+import { updateProduct } from "@/state/slice/product";
+import { ProductType } from "@/types";
 
 function extractTextFromHtml(htmlString: string): string {
   const doc = new DOMParser().parseFromString(htmlString, "text/html");
@@ -83,6 +84,7 @@ export const CompanyDescription = ({
             color="primary"
             onClick={() => {
               dispatch(updatedDescription(description));
+              dispatch(updateProduct({ description }));
               router.push("/product");
             }}
           >

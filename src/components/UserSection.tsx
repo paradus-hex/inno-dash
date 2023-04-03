@@ -2,7 +2,7 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Typography } from "@mui/material";
-import { User } from "@/state/slice/product";
+import { User } from "@/types";
 
 const UserSection = ({ user, company }: { user: User; company: string }) => {
   return (

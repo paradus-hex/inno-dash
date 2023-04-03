@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import L from "leaflet";
-import { Company } from "@/state/slice/product";
+import { Company } from "@/types";
 import RoomIcon from "@mui/icons-material/Room";
 import ReactDOMServer from "react-dom/server";
 
