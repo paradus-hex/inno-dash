@@ -73,7 +73,7 @@ const EditProduct = () => {
                   <CompanyDescription isEdit={true} data={data} />
                 </Box>
                 <YoutubeComponent />
-                <DetailsSection data={data} />
+                <DetailsSection data={data} isEdit={true} />
               </ThemeProvider>
             </Box>
           )}

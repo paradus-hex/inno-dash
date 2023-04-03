@@ -13,9 +13,10 @@ import {
 } from "@mui/material";
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useRouter } from "next/router";
 const DetailsSection = ({
   data,
-  isEdit = true,
+  isEdit = false,
 }: {
   data: ProductType;
   isEdit?: boolean;
@@ -23,6 +24,7 @@ const DetailsSection = ({
   let icon: any;
 
   const handleDelete = (model: any) => {};
+  const router = useRouter();
   return (
     <Card className="mx-4 md:mx-0 md:mr-8 md:w-full">
       <CardActionArea>
@@ -122,15 +124,27 @@ const DetailsSection = ({
         </CardContent>
       </CardActionArea>
       <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            console.log(data);
-          }}
-        >
-          Save
-        </Button>
+        {!isEdit ? (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              router.push("/product/edit");
+            }}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              console.log(data);
+            }}
+          >
+            Save
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

@@ -82,7 +82,7 @@ const productSlice = createSlice({
       if (state.data) state.data.description = action.payload
     },
     updatedVideoLink(state, action) {
-      if (state.data) state.data.description = action.payload
+      if (state.data) state.data.video = action.payload
     }
 
   },
@@ -106,5 +106,5 @@ const productSlice = createSlice({
   }
 });
 
-export const { updatedDescription } = productSlice.actions;
+export const { updatedDescription, updatedVideoLink } = productSlice.actions;
 export default productSlice.reducer

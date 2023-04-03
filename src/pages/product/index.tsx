@@ -73,20 +73,7 @@ const Product = () => {
                   <CompanyDescription data={data} />
                   <Offer data={data} />
                 </Box>
-                <Card className="my-10 mx-4 md:mx-0">
-                  <Typography variant="h6" className="pt-2 pl-2">
-                    Video
-                  </Typography>
-                  <CardActionArea
-                    sx={{
-                      padding: "24px",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <YoutubeComponent videoLink={data.video} />
-                  </CardActionArea>
-                </Card>
+                <YoutubeComponent videoLink={data.video} />
                 <DetailsSection data={data} />
               </ThemeProvider>
             </Box>

@@ -5,15 +5,22 @@ import {
   Card,
   CardActions,
   Button,
+  Box,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import YouTube, { YouTubeProps } from "react-youtube";
-
+import { useAppDispatch } from "@/hooks";
+import { updatedVideoLink } from "@/state/slice/product";
+import { useRouter } from "next/router";
+import { dark } from "@mui/material/styles/createPalette";
 export default function YoutubeComponent({
   videoLink,
 }: {
   videoLink?: string;
 }) {
+  const [link, setLink] = useState(videoLink);
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   let videoId;
   if (videoLink) {
     videoId = videoLink.split("v=")[1];
@@ -32,7 +39,7 @@ export default function YoutubeComponent({
   };
 
   return (
-    <div className="pb-12">
+    <Box className="pb-12">
       <Card className="my-10 mx-4 md:mx-0">
         <Typography variant="h6" className="pt-2 pl-2">
           Video
@@ -50,17 +57,27 @@ export default function YoutubeComponent({
               label="Youtube URL"
               className="w-[640px]"
               variant="standard"
+              onChange={(e) => setLink(e.target.value)}
             />
           ) : (
             <YouTube videoId={videoId} opts={opts} onReady={onPlayerReady} />
           )}
         </CardActionArea>
-        <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button size="small" color="primary" onClick={() => {}}>
-            Save
-          </Button>
-        </CardActions>
+        {!videoLink ? (
+          <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => {
+                dispatch(updatedVideoLink(link));
+                router.push("/product");
+              }}
+            >
+              Save
+            </Button>
+          </CardActions>
+        ) : null}
       </Card>
-    </div>
+    </Box>
   );
 }
